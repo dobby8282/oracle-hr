@@ -1,3 +1,7 @@
+/*
+REGIONS
+*/
+
 SELECT
     employees.employee_id,
     employees.first_name,
