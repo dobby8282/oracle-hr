@@ -14,7 +14,6 @@ SELECT
 
 */
 
-
 -- 모든 열 선택 *
 SELECT *
 FROM departments;
