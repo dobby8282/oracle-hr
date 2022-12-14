@@ -70,14 +70,33 @@ FROM employees;
 
 /*
 연결 연산자
-
     열이나 문자열을 다른 열에 연결합니다.
     두 개의 세로선(||)으로 나타냅니다.
     결과 열로 문자 표현식을 작성합니다.
 */
+SELECT last_name||job_id AS "Employees"
+FROM employees;
+
+/*
+리터럴 문자열
+    리터럴은 SELECT 문에 포함된 문자, 숫자 또는 날짜입니다.
+    날짜 및 문자 리터럴 값은 작은 따옴표로 묶어야 합니다.
+    각 문자열은 반환되는 각 행에 한 번 출력됩니다
+*/
+SELECT last_name ||' is a '||job_id 
+AS "Employee Details"
+FROM employees;
 
 
-
-
+/*
+대체 인용(q) 연산자
+    자신의 따옴표 구분자를 지정합니다.
+    구분자를 임의로 선택합니다.
+    가독성 및 사용성이 증가합니다.
+*/
+SELECT department_name || q'[ Department's Manager Id: ]'
+|| manager_id
+AS "Department and Manager" 
+FROM departments;
 
 
