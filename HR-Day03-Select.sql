@@ -1,44 +1,37 @@
 /*
-SQL (Structured Query Language) - ±¸Á¶Àû ÁúÀÇ ¾ð¾î
-    °ü°èÇü µ¥ÀÌÅÍº£ÀÌ½º ½Ã½ºÅÛ(RDBMS)¿¡¼­ ÀÚ·á¸¦ °ü¸® ¹× Ã³¸®ÇÏ±â À§ÇØ ¼³°èµÈ ¾ð¾î
-
-SQL¹® ÀÛ¼º
-    ´ë¼Ò¹®ÀÚ¸¦ ±¸ºÐÇÏÁö ¾Ê´Â´Ù.
-    ¿©·¯ ÁÙ¿¡ ÀÔ·ÂÇÒ ¼ö ÀÖ´Ù.
-    Å°¿öµå´Â ¿©·¯ ÁÙ¿¡ °ÉÃÄ ÀÔ·ÂÇÏ°Å³ª ¾à¾î·Î Ç¥±âÇÒ ¼ö ¾ø´Ù.
-    ÀýÀº ÀÏ¹ÝÀûÀ¸·Î ÀÐ±â ½±°í ÆíÁýÇÏ±â ½±µµ·Ï º°µµÀÇ Çà¿¡ µÐ´Ù.
-    ÄÚµåÀÇ °¡µ¶¼ºÀ» ³ôÀÌ±â À§ÇØ µé¿©¾²±â¸¦ »ç¿ë.
-
-1. SELECT 
-    µ¥ÀÌÅÍº£ÀÌ½º¿¡¼­ Á¤º¸¸¦ °Ë»ö
-
+íŒŒì¼ëª… : HR-Day03-Select.sql
+SQL (Structured Query Language) - êµ¬ì¡°ì  ì§ˆì˜ ì–¸ì–´
+    ê´€ê³„í˜• ë°ì´í„°ë² ì´ìŠ¤ ì‹œìŠ¤í…œ(RDBMS)ì—ì„œ ìžë£Œë¥¼ ê´€ë¦¬ ë° ì²˜ë¦¬í•˜ê¸° ìœ„í•´ ì„¤ê³„ëœ ì–¸ì–´
+    
+SELECT ë¬¸
+    ë°ì´í„°ë² ì´ìŠ¤ì—ì„œ ì •ë³´ ê²€ìƒ‰
 */
 
--- ¸ðµç ¿­ ¼±ÅÃ *
-SELECT *
+-- ëª¨ë“  ì—´ ì„ íƒ * 
+SELECT * 
 FROM departments;
 
--- Æ¯Á¤ ¿­ ¼±ÅÃ
+-- íŠ¹ì • ì—´ ì„ íƒ
 SELECT department_id, location_id
 FROM departments;
 
 /*
-»ê¼ú½Ä
-    »ê¼ú ¿¬»êÀÚ¸¦ »ç¿ëÇÏ¿© ¼ýÀÚ/³¯Â¥ µ¥ÀÌÅÍ Ç¥Çö½Ä ÀÛ¼º
-
-    + ´õÇÏ±â
-    - »©±â
-    * °öÇÏ±â
-    / ³ª´©±â
+ì‚°ìˆ ì‹
+    ì‚°ìˆ  ì—°ì‚°ìžë¥¼ ì‚¬ìš©í•˜ì—¬ ìˆ«ìž/ë‚ ì§œ ë°ì´í„° í‘œí˜„ì‹ ìž‘ì„±
+    
+    + ë”í•˜ê¸°
+    - ë¹¼ê¸°
+    * ê³±í•˜ê¸°
+    / ë‚˜ëˆ„ê¸°
 */
 
--- »ê¼ú ¿¬»êÀÚ »ç¿ë
-SELECT last_name, salary, salary + 300
+-- ì‚°ìˆ  ì—°ì‚°ìž ì‚¬ìš©
+SELECT LAST_NAME, SALARY, SALARY + 300
 FROM employees;
 
-/*
-¿¬»êÀÚ ¿ì¼±¼øÀ§
-    °öÇÏ±â¿Í ³ª´©±â ´Â ´õÇÏ±â »©±âº¸´Ù´Â ¸ÕÀú ¼öÇà
+/* 
+ì—°ì‚°ìž ìš°ì„ ìˆœìœ„
+    ê³±í•˜ê¸°ì™€ ë‚˜ëˆ„ê¸°ëŠ” ë”í•˜ê¸° ë¹¼ê¸°ë³´ë‹¤ëŠ” ë¨¼ì € ìˆ˜í–‰
 */
 SELECT last_name, salary, 12*salary+100
 FROM employees;
@@ -47,58 +40,66 @@ SELECT last_name, salary, 12*(salary+100)
 FROM employees;
 
 /*
-»ê¼ú½ÄÀÇ Null °ª
-    null °ªÀ» Æ÷ÇÔÇÏ´Â »ê¼ú½ÄÀº null·Î °è»ê
+ì‚°ìˆ ì‹ì˜ Null ê°’
+    null ê°’ì„ í¬í•¨í•˜ëŠ” ì‚°ìˆ ì‹ì€ nullë¡œ ê³„ì‚°
 */
-SELECT last_name, 12*salary*commission_pct
+SELECT last_name, 12*salary*commission_pct, salary, commission_pct
 FROM employees;
 
 /*
-¿­ alias Á¤ÀÇ
-    ¿­ ¸Ó¸®±ÛÀÇ ÀÌ¸§À» ¹Ù²ß´Ï´Ù.
-    °è»ê¿¡¼­ À¯¿ëÇÕ´Ï´Ù.
-    ¿­ ÀÌ¸§ ¹Ù·Î µÚ¿¡ ³ª¿É´Ï´Ù. (¿­ ÀÌ¸§°ú alias »çÀÌ¿¡ ¼±ÅÃ
-    »çÇ×ÀÎ AS Å°¿öµå°¡ ¿Ã ¼öµµ ÀÖ½À´Ï´Ù.)
-    °ø¹éÀÌ³ª Æ¯¼ö ¹®ÀÚ¸¦ Æ÷ÇÔÇÏ°Å³ª ´ë¼Ò¹®ÀÚ¸¦ ±¸ºÐÇÏ´Â °æ¿ì
-    Å« µû¿ÈÇ¥°¡ ÇÊ¿äÇÏ´Ù
+ì—´ alias ì •ì˜ - ë³„ëª…
+    ì—´ ë¨¸ë¦¬ê¸€ì˜ ì´ë¦„ì„ ë°”ê¿‰ë‹ˆë‹¤.
+    ê³„ì‚°ì—ì„œ ìœ ìš©í•©ë‹ˆë‹¤.
+    ì—´ ì´ë¦„ ë°”ë¡œ ë’¤ì— ë‚˜ì˜µë‹ˆë‹¤. (ì—´ ì´ë¦„ê³¼ alias ì‚¬ì´ì— ì„ íƒ ì‚¬í•­ì¸ AS í‚¤ì›Œë“œê°€ ì˜¬ ìˆ˜ë„ ìžˆìŠµë‹ˆë‹¤.)
+    ê³µë°±ì´ë‚˜ íŠ¹ìˆ˜ ë¬¸ìžë¥¼ í¬í•¨í•˜ê±°ë‚˜ ëŒ€ì†Œë¬¸ìžë¥¼ êµ¬ë¶„í•˜ëŠ” ê²½ìš° í° ë”°ì˜´í‘œê°€ í•„ìš”í•©ë‹ˆë‹¤.
 */
-SELECT last_name AS name, commission_pct comm
+SELECT last_name AS name, commission_pct comm, salary * 10 as ê¸‰ì—¬10ë°°
 FROM employees;
 
-SELECT last_name "Name" , salary*12 "Annual Salary"
-FROM employees;
-
-/*
-¿¬°á ¿¬»êÀÚ
-    ¿­ÀÌ³ª ¹®ÀÚ¿­À» ´Ù¸¥ ¿­¿¡ ¿¬°áÇÕ´Ï´Ù.
-    µÎ °³ÀÇ ¼¼·Î¼±(||)À¸·Î ³ªÅ¸³À´Ï´Ù.
-    °á°ú ¿­·Î ¹®ÀÚ Ç¥Çö½ÄÀ» ÀÛ¼ºÇÕ´Ï´Ù.
-*/
-SELECT last_name||job_id AS "Employees"
+SELECT last_name "Name", salary*12 "Annual Salary"
 FROM employees;
 
 /*
-¸®ÅÍ·² ¹®ÀÚ¿­
-    ¸®ÅÍ·²Àº SELECT ¹®¿¡ Æ÷ÇÔµÈ ¹®ÀÚ, ¼ýÀÚ ¶Ç´Â ³¯Â¥ÀÔ´Ï´Ù.
-    ³¯Â¥ ¹× ¹®ÀÚ ¸®ÅÍ·² °ªÀº ÀÛÀº µû¿ÈÇ¥·Î ¹­¾î¾ß ÇÕ´Ï´Ù.
-    °¢ ¹®ÀÚ¿­Àº ¹ÝÈ¯µÇ´Â °¢ Çà¿¡ ÇÑ ¹ø Ãâ·ÂµË´Ï´Ù
-*/
-SELECT last_name ||' is a '||job_id 
-AS "Employee Details"
+ì—°ê²° ì—°ì‚°ìž
+    ì—´ì´ë‚˜ ë¬¸ìžì—´ì„ ë‹¤ë¥¸ì—´ì— ì—°ê²°í•©ë‹ˆë‹¤.
+    ë‘ ê°œì˜ ì„¸ë¡œì„ (||)ìœ¼ë¡œ ë‚˜íƒ€ëƒ…ë‹ˆë‹¤.
+    ê²°ê³¼ ì—´ë¡œ ë¬¸ìž í‘œí˜„ì‹ì„ ìž‘ì„± í•©ë‹ˆë‹¤.
+*/ 
+SELECT last_name||job_id AS "Employees", last_name, job_id
 FROM employees;
 
+/*
+ë¦¬í„°ëŸ´ ë¬¸ìžì—´
+    ë¦¬í„°ëŸ´ì€ SELECT ë¬¸ì— í¬í•¨ëœ ë¬¸ìž, ìˆ«ìž ë˜ëŠ” ë‚ ì§œìž…ë‹ˆë‹¤.
+    ë‚ ì§œ ë° ë¬¸ìž ë¦¬í„°ëŸ´ ê°’ì€ ìž‘ì€ ë”°ì˜´í‘œë¡œ ë¬¶ì–´ì•¼ í•©ë‹ˆë‹¤.
+    ê° ë¬¸ìžì—´ì€ ë°˜í™˜ë˜ëŠ” ê° í–‰ì— í•œ ë²ˆ ì¶œë ¥ë©ë‹ˆë‹¤.
+*/
+SELECT last_name || ' is a ' || job_id AS "Employee Details"
+FROM employees;
 
 /*
-´ëÃ¼ ÀÎ¿ë(q) ¿¬»êÀÚ
-    ÀÚ½ÅÀÇ µû¿ÈÇ¥ ±¸ºÐÀÚ¸¦ ÁöÁ¤ÇÕ´Ï´Ù.
-    ±¸ºÐÀÚ¸¦ ÀÓÀÇ·Î ¼±ÅÃÇÕ´Ï´Ù.
-    °¡µ¶¼º ¹× »ç¿ë¼ºÀÌ Áõ°¡ÇÕ´Ï´Ù.
+ëŒ€ì²´ ì¸ìš©(q) ì—°ì‚°ìž
+    ìžì‹ ì˜ ë”°ì˜´í‘œ êµ¬ë¶„ìžë¥¼ ì§€ì •í•©ë‹ˆë‹¤.
+    êµ¬ë¶„ìžë¥¼ ìž„ì˜ë¡œ ì„ íƒí•©ë‹ˆë‹¤.
+    ê°€ë…ì„± ë° ì‚¬ìš©ì„±ì´ ì¦ê°€í•©ë‹ˆë‹¤.
 */
-SELECT department_name || q'[ Department's Manager Id: ]'
-|| manager_id
-AS "Department and Manager" 
+SELECT department_name || q'[ Department's Manager Id: ]' || manager_id
+AS "Department and Manager"
 FROM departments;
-
-
-
-
+/*
+ì¤‘ë³µí–‰
+    ê¸°ë³¸ì ìœ¼ë¡œ query ê²°ê³¼ì—ëŠ” ì¤‘ë³µ í–‰ì„ í¬í•¨í•œ ëª¨ë“ í–‰ì´ í‘œì‹œë©ë‹ˆë‹¤.
+DISTINCT 
+    ê²°ê³¼ì—ì„œ ì¤‘ë³µí–‰ ì œê±°
+*/
+-- ì¤‘ë³µí–‰
+SELECT department_id
+FROM employees;
+-- ì¤‘ë³µì œê±°
+SELECT DISTINCT department_id
+FROM employees;
+/*
+í…Œì´ë¸” êµ¬ì¡°í‘œì‹œ
+    DESCRIBE ëª…ë ¹ì„ ì‚¬ìš©í•˜ì—¬ í…Œì´ë¸” êµ¬ì¡°ë¥¼ í‘œì‹œí•©ë‹ˆë‹¤.
+*/
+DESCRIBE employees;
