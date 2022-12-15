@@ -17,6 +17,16 @@ WHERE employee_id = &employee_num;
 */
 SELECT last_name, department_id, salary*12
 FROM employees
-WHERE job_id = '&job_title'
+WHERE job_id = &job_title
 ;
 
+-- 열 이름, 표현식 및 텍스트 지정
+SELECT employee_id, last_name, job_id,&column_name
+FROM employees
+WHERE &condition
+ORDER BY &order_column ;
+
+/*
+이중 앰퍼샌드 치환 변수 사용
+    유저가 매번 값을 입력할 필요 없이 변수 값을 재사용하려는 경우 이중 앰퍼샌드(&&)를 사용합니다
+*/
