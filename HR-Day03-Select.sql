@@ -33,6 +33,7 @@ FROM employees;
 연산자 우선순위
     곱하기와 나누기는 더하기 빼기보다는 먼저 수행
 */
+
 SELECT last_name, salary, 12*salary+100
 FROM employees;
 
@@ -43,6 +44,7 @@ FROM employees;
 산술식의 Null 값
     null 값을 포함하는 산술식은 null로 계산
 */
+
 SELECT last_name, 12*salary*commission_pct, salary, commission_pct
 FROM employees;
 
@@ -86,18 +88,23 @@ FROM employees;
 SELECT department_name || q'[ Department's Manager Id: ]' || manager_id
 AS "Department and Manager"
 FROM departments;
+
+
 /*
 중복행
     기본적으로 query 결과에는 중복 행을 포함한 모든행이 표시됩니다.
 DISTINCT 
     결과에서 중복행 제거
 */
+
 -- 중복행
 SELECT department_id
 FROM employees;
+
 -- 중복제거
 SELECT DISTINCT department_id
 FROM employees;
+
 /*
 테이블 구조표시
     DESCRIBE 명령을 사용하여 테이블 구조를 표시합니다.

@@ -82,6 +82,7 @@ WHERE last_name LIKE '_o%';
 SELECT employee_id, last_name, job_id
 FROM employees 
 WHERE job_id LIKE '%SA\_%' ESCAPE '\';
+
 /*
 NULL 조건 사용
     IS NULL 연산자로 null을 테스트 합니다
@@ -89,6 +90,7 @@ NULL 조건 사용
 SELECT last_name, manager_id
 FROM employees
 WHERE manager_id IS NULL;
+
 /*
 논리 연산자를 사용하여 조건정의
     AND : 구성 요소 조건이 모두 참인 경우 TRUE 반환
@@ -100,15 +102,18 @@ SELECT employee_id, last_name, job_id, salary
 FROM employees
 WHERE salary >= 10000
 AND job_id LIKE '%MAN%';
+
 -- OR 연산자 사용
 SELECT employee_id, last_name, job_id, salary
 FROM employees
 WHERE salary >= 10000
 OR job_id LIKE '%MAN%';
+
 -- NOT 연산자 사용
 SELECT last_name, job_id
 FROM employees
 WHERE job_id NOT IN ('IT_PROG', 'ST_CLERK', 'SA_REP');
+
 /*
 ORDER BY 절
     ORDER BY 절을 사용하여 검색된 행을 정렬합니다.
@@ -119,19 +124,22 @@ ORDER BY 절
 SELECT last_name, job_id, department_id, hire_date
 FROM employees
 ORDER BY hire_date;
+
 -- 내림차순 정렬
 SELECT last_name, job_id, department_id, hire_date
 FROM employees
 ORDER BY hire_date DESC;
+
 -- 열  alias를 기준으로 정렬
 SELECT employee_id, last_name, salary*12 annsal
 FROM employees
-ORDER BY annsal
-;
+ORDER BY annsal;
+
 -- 열 숫자 위치를 사용하여 정렬
 SELECT last_name, job_id, department_id, hire_date
 FROM employees
 ORDER BY 3;
+
 -- 여러 열을 기준으로 정렬
 SELECT last_name, job_id, department_id, salary
 FROM employees
