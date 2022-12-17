@@ -204,10 +204,47 @@ FROM employees
 ;
 
 
+/*
+COALESCE() 함수
+    리스트에서 null이 아닌 첫번째 표현식을 반환합니다
+*/
+SELECT last_name, employee_id,
+COALESCE(TO_CHAR(commission_pct),TO_CHAR(manager_id),
+'No commission and no manager') 
+FROM employees;
 
 
+/*
+조건부 표현식
+    SQL 문에서 IF-THEN-ELSE 논리를 사용할 수 있습니다
+    - CASE 식
+    - DECODE 함수
+
+*/
 
 
+/*
+CASE 식
+    IF-THEN-ELSE 문 작업을 수행하여 조건부 조회를 편리하게
+    수행하도록 합니다
+*/
+SELECT last_name, job_id, salary,
+    CASE job_id WHEN 'IT_PROG' THEN 1.10*salary
+                WHEN 'ST_CLERK' THEN 1.15*salary
+                WHEN 'SA_REP' THEN 1.20*salary
+    ELSE salary END "REVISED_SALARY"
+FROM employees;
 
+/*
+DECODE() 함수
+*/
+
+SELECT last_name, job_id, salary,
+    DECODE(job_id, 'IT_PROG', 1.10*salary,
+                    'ST_CLERK', 1.15*salary,
+                    'SA_REP', 1.20*salary,
+            salary)
+    REVISED_SALARY
+FROM employees;
 
 
