@@ -60,7 +60,16 @@ SELECT * FROM departments
 WHERE NOT EXISTS
             (SELECT * FROM employees
             WHERE employees.department_id=departments.department_id);
-            
-select DISTINCT department_id from employees
-order by department_id
-;
+
+/*
+Subquery의 null 값
+    반환되는 값 중 하나가 null 값이면 전체 query가 행을 반환하지 않습니다.
+    null 값을 비교하는 모든 조건은 결과가 null이기 때문입니다.
+    
+*/
+SELECT emp.last_name
+FROM employees emp
+WHERE emp.employee_id NOT IN
+                        (SELECT mgr.manager_id
+                        FROM employees mgr);
+
