@@ -143,3 +143,5 @@ FOR UPDATE
 ORDER BY employee_id;
 
 
+commit;
+
