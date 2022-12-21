@@ -113,25 +113,36 @@ TRUNCATE TABLE copy_emp;
 
 
 /*
-COMMIT 또는 ROLLBACK 전의 데이터 상태
-    이전의 데이터 상태를 복구할 수 있습니다.
-    현재 유저는 SELECT 문을 사용하여 DML 작업의 결과를 확인할 수 있습니다.
-    다른 유저는 현재 유저가 실행한 DML 문의 결과를 볼 수 없습니다.
-    영향을 받는 행이 잠기므로 다른 유저가 영향을 받는 행의 데이터를 변경할 수 없습니다.
+트랜잭션(Transaction)
+    데이터 처리의 한 단위입니다. 
+    오라클에서 발생하는 여러 개의 SQL 명령문들을 하나의 논리적인 작업 단위로 처리하는데 
+    이를 트랜잭션이라고 합니다.
+    
+    COMMIT : SQL문의 결과를 영구적으로 DB에 반영
+    ROLLBACK : SQL문의 실행결과를 취소할 때
+    SAVEPOINT : 트랜젝션의 한지점에 표시하는 임시 저장점
 */
 
+CREATE TABLE member (
+    num NUMBER PRIMARY KEY,
+    name VARCHAR2(30),
+    addr VARCHAR(50)
+    );
+
+
+INSERT INTO member VALUES(1,'피카츄','노량진');
 COMMIT;
+INSERT INTO member VALUES(2,'라이츄','우리집');
+INSERT INTO member VALUES(3,'파이리','동대문');
 
 ROLLBACK;
-/*
-SAVEPOINT
-    변경 사항을 표시자로 롤백
-    
-UPDATE...
-SAVEPOINT update_done;
-INSERT...
-ROLLBACK TO update_done;
-*/
+
+INSERT INTO member VALUES(4,'aaa','BBB');
+SAVEPOINT mypoint;
+INSERT INTO member VALUES(5,'bbb','BBB');
+INSERT INTO member VALUES(6,'ccc','BBB');
+ROLLBACK TO mypoint;
+COMMIT;
 
 /*
 SELECT 문의 FOR UPDATE 절

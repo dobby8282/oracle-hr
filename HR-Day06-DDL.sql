@@ -48,21 +48,80 @@ CREATE TABLE dept3 AS SELECT * FROM dept;
 CREATE TABLE dapt4 AS SELECT * FROM dept WHERE 1=2;
 
 
+/*
+ALTER 
+    객체를 변경할 때 사용합니다.
+*/
 
-create table dept3
-(dept number(2) primary key,
+CREATE TABLE simple(num NUMBER);    --테이블 생성
+
+ALTER TABLE simple ADD(name VARCHAR2(3)); 
+ALTER TABLE simple MODIFY(name VARCHAR2(30));
+ALTER TABLE simple DROP COLUMN name;
+
+ALTER TABLE simple ADD(addr VARCHAR2(50)); 
+ALTER TABLE simple MODIFY(addr VARCHAR2(100));
+ALTER TABLE simple DROP(addr);
+
+DROP TABLE simple;
+
+
+/*
+제약조건(Constraint)
+    테이블의 해당칼럼에 원하지 않는 데이터를 입력/수정/삭제 되는 것을 방지하기
+    위해 테이블 생성 또는 변경시 설정하는 조건입니다.(저장된 테이터의 신뢰성을 높이기 위해)
+    
+    NOT NULL
+        NULL로 입력이 되어서는 안되는 칼럼에 부여하는 
+        조건으로 칼럼 레벨에서만 부여할 수 있는 제약조건입니다.
+    UNIQUE KEY(유일키)
+        저장된 값이 중복되지 않고 오직 유일하게 
+        유지되어야 할 때 사용하는 제약조건입니다.
+        (NULL은 허용된다)
+
+    PRIMARY KEY(대표키)
+        NOT NULL조건과 UNIQUE KEY를 합친 조건입니다.
+        (테이블 하나당 하나는 있어야 한다)
+    CHECK 
+        조건에 맞는 데이터만 입력되도록 조건을 부여하는 제약조건입니다.
+    FOREIGN KEY(외래키) 
+        부모 테이블의 PRIMARY KEY를 참조하는 칼럼에 붙이는 제약조건입니다.   
+*/
+create table dept2
+(dept number(2) constraint dept2_deptno_pk primary key,
 dname varchar2(15) default'영업부',
-loc char(1) check(loc in('1','2'))); -- check (loc > 0) 
+loc char(1) constraint dept2_loc_ck check(loc in('1','2')));
 
-insert into dept3 values(13,'회계','5');
+DROP TABLE dept3;
+CREATE TABLE dept3
+(dept NUMBER(2) PRIMARY KEY,
+dname VARCHAR2(15) DEFAULT'영업부',
+loc CHAR(1) CHECK(loc IN('1','2')));
 
-SELECT  LAST.*
-FROM    (SELECT ROWNUM RNUM,
-                TEMP.*   
-        FROM    (SELECT  dept3.dept
-                      ,  dept3.loc
-                FROM     dept3
-                ) TEMP
-        ORDER BY RNUM DESC
-        )LAST
 
+-- 외래키를 만들기 위해서는 부모테이블을 먼저 만들어야한다
+-- 부모테이블 만들기
+DROP TABLE dept2; 
+CREATE TABLE dept2(
+deptno NUMBER(2) PRIMARY KEY,
+dname VARCHAR2(15) NOT NULL);
+
+-- 부모테이블 참조하는 자식테이블 만들기
+DROP TABLE emp2;
+CREATE TABLE emp2(
+empno NUMBER(4) PRIMARY KEY,
+ename VARCHAR2(15) NOT NULL,
+deptno NUMBER(2) REFERENCES dept2(deptno));
+
+-- 제약 조건 이름 검색하기
+SELECT * FROM user_constraints
+--WHERE table_name ='EMP2'
+;
+-- 제약조건 검색
+select constraint_name from user_constraints;
+
+-- 제약조건은 수정 불가능, 삭제만 가능하다
+alter table dept2 drop constraint 제약조건명;
+
+-- 제약조건 추가하기
+alter table dept2 add(constraint 제약조건명 primary key(deptno));
