@@ -111,17 +111,22 @@ DROP TABLE emp2;
 CREATE TABLE emp2(
 empno NUMBER(4) PRIMARY KEY,
 ename VARCHAR2(15) NOT NULL,
-deptno NUMBER(2) REFERENCES dept2(deptno));
+deptno NUMBER(2),
+CONSTRAINT emp2_dept2_fk FOREIGN KEY (deptno)
+    REFERENCES dept2(deptno)
+);
 
 -- 제약 조건 이름 검색하기
 SELECT * FROM user_constraints
 --WHERE table_name ='EMP2'
 ;
 -- 제약조건 검색
-select constraint_name from user_constraints;
+SELECT constraint_name FROM user_constraints;
 
 -- 제약조건은 수정 불가능, 삭제만 가능하다
-alter table dept2 drop constraint 제약조건명;
+ALTER TABLE dept2 DROP CONSTRAINT 제약조건명;
 
 -- 제약조건 추가하기
-alter table dept2 add(constraint 제약조건명 primary key(deptno));
+ALTER TABLE dept2 ADD(CONSTRAINT 제약조건명 PRIMARY KEY(deptno));
+
+
