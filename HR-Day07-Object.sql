@@ -111,23 +111,26 @@ NOCACHE | CACHE : NOCACHE(사용안함), CACHE(캐시를 사용하여 미리 값
 NOORDER | ORDER : NOORDER(사용안함), ORDER(요청 순서로 값을 생성하여 발생 순서를 보장하지만 조금의 시스템 부하가 있음)
 */
 CREATE SEQUENCE my_seq
-       INCREMENT BY 1       -- 증가값(1씩증가)
+       INCREMENT BY 2       -- 증가값(1씩증가)
        START WITH 1         -- 시작값
        MINVALUE 1           -- 최소값
        MAXVALUE 99999999    -- 최대값
        NOCYCLE              -- 최대값 도달시 시작값 부터 반복안함
-       NOCACHE              -- CACHE 사용안함
-       NOORDER;             -- 요청 순서대로 값을 생성할지 여부
+       CACHE 20             -- CACHE 사용안함
+       ORDER;               -- 요청 순서대로 값을 생성할지 여부
    
 SELECT my_seq.NEXTVAL FROM dual;
 DROP SEQUENCE my_seq;
 SELECT my_seq.CURRVAL FROM dual;
+
 
 SELECT * FROM dept2;
 
 INSERT INTO dept2 VALUES (my_seq.NEXTVAL, 'A', 1);
 INSERT INTO dept2 VALUES (my_seq.NEXTVAL, 'B', 2);
 INSERT INTO dept2 VALUES (my_seq.NEXTVAL, 'C', 1);
+
+DROP SEQUENCE my_seq;
 
 /*
 인덱스
