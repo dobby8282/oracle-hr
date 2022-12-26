@@ -111,7 +111,7 @@ CREATE OR REPLACE PROCEDURE print_hello_proc -- 매개 변수가 없으면 () �
     END;   -- 문장의 끝
 -- 프로시저 종료
 
-exec print_hello_proc;
+EXEC print_hello_proc;
 
 
 --IN 매개변수
@@ -128,7 +128,7 @@ SELECT * FROM emp
 WHERE employee_id = 115;
     
 -- 3410    
-exec update_emp_salary_proc(115);
+EXEC update_emp_salary_proc(115);
 
 
 --out 매개변수
