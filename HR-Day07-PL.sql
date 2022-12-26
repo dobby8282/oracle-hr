@@ -91,11 +91,13 @@ END
 
 [기본구조]
 CREATE OR REPLACE PROCEDURE 프로시져이름 (파라미터1,파라미터2...);
-IS
-    변수
-BEGIN
-    쿼리문
-END 프로시져 이름;
+    IS [AS]
+        [선언부]
+    BEGIN
+        [실행부 - PL/SQL Block]
+    [EXCEPTION]
+        [EXCEPTION 처리]
+END;
 */
 
 -- 예제 emp 테이블 생성
@@ -179,3 +181,81 @@ EXEC find_sal(:v_eno);
 PRINT v_eno;
 
 
+/*
+함수(Function)
+    특정 기능들을 모듈화, 재사용 할 수 있어서 복잡한 쿼리문을 간결하게 만들수 있습니다.
+
+
+[기본구조]
+CREATE [OR REPLACE] FUNCTION function_name [(
+    파라미터1,파라미터2...
+)]
+RETURN datatype -- 반환되는 값의 datatype
+    IS [AS]
+        [선언부]
+    BEGIN
+        [실행부 - PL/SQL Block]
+    [EXCEPTION]
+        [EXCEPTION 처리]
+    RETURN 변수; -- 리턴문 필수
+END;
+*/
+
+CREATE OR REPLACE FUNCTION FN_GET_DEPT_NAME(
+	P_DEPT_NO IN NUMBER
+) RETURN VARCHAR2
+	IS 
+		V_TEST_NAME VARCHAR2(30);
+	BEGIN
+		SELECT	department_name
+		INTO	V_TEST_NAME
+		FROM 	departments
+		WHERE	department_id = P_DEPT_NO;
+		
+	RETURN  	V_TEST_NAME;
+END;
+
+SELECT FN_GET_DEPT_NAME(10) FROM DUAL;
+
+
+/*
+트리거(TRIGGER)
+    INSERT, UPDATE, DELETE문이 TABLE에 대해 행해질 때 묵시적으로 수행되는 프로시저 입니다.
+
+[기본구조]
+CREATE OR REPLACE TRIGGER 트리거명
+    - 트리거 옵션
+    BEFORE OR AFTER
+    INSERT OR UPDATE OR DELETE ON 테이블명
+    [FOR EACH ROW]
+DECLARE
+    선언부;
+BEGIN
+    실행부;
+    [INSERTING, UPDAING, DELETING] ****
+[EXCEPTION]
+    예외처리부
+END;
+*/
+CREATE TABLE dept5
+        (deptno NUMBER(6) primary key,
+        dname VARCHAR2(200),
+        loc VARCHAR2(200),
+        create_date DATE DEFAULT SYSDATE,
+        update_date DATE DEFAULT SYSDATE
+        );
+    
+select * from dept5;
+
+-- 직원테이블 수정 시 시스템시간으로 수정일시 업데이트
+CREATE OR REPLACE TRIGGER TRIGGER1_dept5
+	BEFORE UPDATE ON dept5
+	FOR EACH ROW
+	BEGIN
+		:new.update_date := SYSDATE;
+	END;
+    
+    
+update dept5 set
+dname = 'BBBB'
+where deptno =2;
