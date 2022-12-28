@@ -158,3 +158,18 @@ select * from d_sum;
 -- 동의어 제거
 DROP SYNONYM d_sum;
 
+
+/*
+ ROWID와 ROWNUM
+    오라클에서 테이블을 생성하면 기본적으로 제공되는 컬럼
+    ROWID : ROW 고유의 아이디 (ROW를 수정해도 변하지 않음)
+    ROWNUM : 행의 INDEX (ROW 삭제시 변경될 수 있다)
+*/
+
+select rowid,rownum from employees;
+select rowid,rownum,last_name from employees;
+
+-- ROW의 갯수를 알고 싶다면?
+select count(*) from employees; 
+select max(rownum) from employees; 
+select count(rownum) from employees; 

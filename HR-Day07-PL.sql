@@ -116,8 +116,8 @@ CREATE OR REPLACE PROCEDURE print_hello_proc -- 매개 변수가 없으면 () �
 EXEC print_hello_proc;
 
 
---IN 매개변수
---IN : 값이 프로시저 안으로 들어감
+-- IN 매개변수
+-- IN : 값이 프로시저 안으로 들어감
 CREATE OR REPLACE PROCEDURE update_emp_salary_proc(eno IN NUMBER ) IS
     BEGIN
         UPDATE emp SET salary = salary*1.1
@@ -133,9 +133,9 @@ WHERE employee_id = 115;
 EXEC update_emp_salary_proc(115);
 
 
---out 매개변수
---OUT : 프로시저는 반환값이 없으므로 OUT 매개변수를 활용
---사원 번호를 넣으면 사원명과 급여 반환
+-- OUT 매개변수
+-- OUT : 프로시저는 반환값이 없으므로 OUT 매개변수를 활용
+-- 사원 번호를 넣으면 사원명과 급여 반환
 CREATE OR REPLACE PROCEDURE find_emp_proc(v_eno IN NUMBER, 
     v_fname OUT NVARCHAR2, v_lname OUT NVARCHAR2, v_sal OUT NUMBER)
 IS
