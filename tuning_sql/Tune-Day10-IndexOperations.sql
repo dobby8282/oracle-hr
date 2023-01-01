@@ -139,10 +139,7 @@ INDEX RANGE SCAN 과 FULL TABLE SCAN
     테이블 대부분의 데이터를 찾을때는 FULL TABLE SCAN 방식이 유리하다
 */
 
-
-
---1511565
-SELECT count(*) FROM orders;
+SELECT COUNT(*) FROM orders;
 
 CREATE INDEX orders_custno_idx ON orders(custno);
 
@@ -163,13 +160,10 @@ FROM orders
 WHERE custno BETWEEN 1 AND 5000;
 SELECT * FROM TABLE(DBMS_XPLAN.DISPLAY_CURSOR(NULL, NULL, 'ALLSTATS LAST'));
 
---|   0 | SELECT STATEMENT   |        |      1 |        |      1 |00:00:23.13 |     503K|    503K|
---|   0 | SELECT STATEMENT                     |                   |      1 |        |      1 |00:06:23.40 |     757K|    731K|
 SELECT /*+ INDEX(orders orders_custno_idx) */ MAX(orderdate)
 FROM orders
 WHERE custno BETWEEN 1 AND 5000;
 SELECT * FROM TABLE(DBMS_XPLAN.DISPLAY_CURSOR(NULL, NULL, 'ALLSTATS LAST'));
-
 
 
 /*
@@ -178,18 +172,14 @@ INDEX FAST FULL SCAN
   INDEX FAST FULL SCAN은 인덱스에 포함된 컬럼들만 SQL에 사용되었을 때 발생
 : Multi Block I/O에 의해 리프 블록에 접근하므로, 데이터의 출력 순서를 보장하지 않음
 */
+CREATE INDEX emp_idx on emp(job, hiredate, deptno);
 
-
-CREATE INDEX orders_idx ON orders(orderdate, paytype, custno);
-
-SELECT /*+ INDEX_FFS(o orders_idx) */ TO_CHAR(orderdate, 'YYYYMM') yyyymm, COUNT(custno) total
-FROM orders o
-WHERE paytype = '신용카드'
-GROUP BY TO_CHAR(orderdate, 'YYYYMM');
+SELECT /*+ INDEX_FFS(e emp_idx) */ TO_CHAR(hiredate, 'YYYYMM') yyyymm, COUNT(deptno) total
+FROM emp e
+WHERE job = 'CLERK'
+GROUP BY TO_CHAR(hiredate, 'YYYYMM')
+order by yyyymm 
+;
 SELECT * FROM TABLE(DBMS_XPLAN.DISPLAY_CURSOR(NULL, NULL, 'ALLSTATS LAST'));
-
-
-
-
 
 
