@@ -1,1 +1,1 @@
-SELECT * FROM table(DBMS_XPLAN.DISPLAY_CURSOR(null, null, 'allstats last -rows +predicate +outline +alias'));
+SELECT * FROM TABLE(DBMS_XPLAN.DISPLAY_CURSOR(NULL, NULL, 'ALLSTATS LAST'));

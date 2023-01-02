@@ -67,12 +67,9 @@ HASH JOIN
     메모리 HASH_AREA_SIZE로 최적화(SORT_AREA_SIZE 2배가 기본값)
     
 Hash JOIN 사용기준
-    JOIN 컬럼에 적당한 인덱스가 없어 NL JOIN이 비효율적일 때
-    JOIN 컬럼에 인덱스가 있더라도 NL JOIN DRIVING 집합에서 
-    Inner 쪽 집합으로의 JOIN Access량이 많아 Random Access 부하가 심할 때
-    Sort Merge JOIN하기에는 두 테이블이 너무 커 Sort 부하가 심할 때
-    수행빈도가 낮고 쿼리 수행 시간이 오래 걸리는 대용량 테이블을 JOIN할 때
-    → 배치 프로그램 
+    수행 빈도가 낮고
+    쿼리 수행 시간이 오래 걸리는
+    대량 데이터 조인할 때
 */
 
 SELECT /*+ USE_HASH(e d) */
